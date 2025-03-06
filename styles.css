@@ -1,5 +1,5 @@
 /* Importando Google Fonts - Inter */
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap");
 
 * {
   margin: 0;
@@ -13,22 +13,22 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(#EEEEFF, #C8C7FF);
+  background: linear-gradient(#f4f4f4, #c8c7ff);
 }
 
-.chatbot-popup{
+.chatbot-popup {
   width: 420px;
   position: relative;
-  background: #fff;
+  background: #ffffff;
   overflow: hidden;
   border-radius: 15px;
-  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1), 0 32px 64px -48px rgba(0, 0, 0, 0.5)
+  box-shadow: 0 0 10px rgba(0, 123, 153, 0.3);
 }
 
 .chat-header {
   display: flex;
   align-items: center;
-  background: #5350C4;
+  background: #007b99;
   padding: 15px 22px;
   justify-content: space-between;
 }
@@ -43,22 +43,21 @@ body {
   height: 35px;
   width: 35px;
   padding: 6px;
-  fill: #5350C4;
+  fill: #007b99;
   flex-shrink: 0;
   background: #fff;
   border-radius: 50%;
-  
 }
 
 .header-info .logo-text {
-  color: #fff;
+  color: #ffffff;
   font-size: 1.31rem;
   font-weight: 600;
 }
 
 .chat-header #close-chatbot {
   border: none;
-  color: #fff;
+  color: #ffffff;
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -71,7 +70,7 @@ body {
 }
 
 .chat-header #close-chatbot:hover {
-  background: #3d39ac;
+  background: #005f75;
 }
 
 .chat-body {
@@ -94,11 +93,11 @@ body {
   height: 35px;
   width: 35px;
   padding: 6px;
-  fill: #fff;
+  fill: #ffffff;
   flex-shrink: 0;
   margin-bottom: 2px;
   align-self: flex-end;
-  background: #5350C4;
+  background: #007b99;
   border-radius: 50%;
 }
 
@@ -111,85 +110,38 @@ body {
   padding: 12px 16px;
   max-width: 75%;
   font-size: 0.95rem;
-  background: #F2F2FF;
-}
-
-.chat-body .bot-message.thinking .message-text {
-  padding: 2px 16px;
 }
 
 .chat-body .bot-message .message-text {
-  background: #F2F2FF;
+  background: #f4f4f4;
   border-radius: 13px 13px 13px 3px;
+  color: #1e1e1e;
 }
 
 .chat-body .user-message .message-text {
-  color: #fff;
-  background: #5350C4;
+  color: #ffffff;
+  background: #007b99;
   border-radius: 13px 13px 3px 13px;
-}
-
-.chat-body .bot-message .thinking-indicator {
-  display: flex;
-  gap: 4px;
-  padding-block: 15px;
-}
-
-.chat-body .bot-message .thinking-indicator .dot {
-  height: 7px;
-  width: 7px;
-  opacity: 0.7;
-  border-radius: 50%;
-  background: #6f6bc2;
-  /* animation: dotPulse 1.8s ease-in-out infinite; */
-}
-
-.chat-body .bot-message .thinking-indicator .dot:nth-child(1) {
-  animation-delay: 0.2s;
-}
-
-.chat-body .bot-message .thinking-indicator .dot:nth-child(2) {
-  animation-delay: 0.3s;
-}
-
-.chat-body .bot-message .thinking-indicator .dot:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes dotPulse {
-  0%, 44% {
-    transform: translateY(0)
-  }
-
-  28% {
-    opacity: 0.4;
-    transform: translateY(-4px)
-  }
-
-  44% {
-    opacity: 0.2;
-    transform: translateY(-4px)
-  }
 }
 
 .chat-footer {
   position: absolute;
   width: 100%;
   bottom: 0;
-  background: #fff;
+  background: #ffffff;
   padding: 15px 22px 20px;
 }
 
 .chat-footer .chat-form {
   display: flex;
   align-items: center;
-  background: #fff;
+  background: #ffffff;
   border-radius: 32px;
-  outline: 1px solid #CCCCE5;
+  outline: 1px solid #cccce5;
 }
 
 .chat-footer .chat-form:focus-within {
-  outline: 2px solid #5350C4;
+  outline: 2px solid #007b99;
 }
 
 .chat-form .message-input {
@@ -221,23 +173,23 @@ body {
   color: #706db0;
   background: none;
   border-radius: 50%;
-  transition: 0.2s ease ;
+  transition: 0.2s ease;
 }
 
 .chat-form .chat-controls #send-message {
-  color: #fff;
+  color: #ffffff;
   display: none;
-  background: #5350C4;
+  background: #f39200;
 }
 
-.chat-form .message-input:valid~ .chat-controls #send-message {
+.chat-form .message-input:valid ~ .chat-controls #send-message {
   display: block;
 }
 
 .chat-form .chat-controls #send-message:hover {
-  background: #3d39ac;
+  background: #d67e00;
 }
 
 .chat-form .chat-controls button:hover {
-  background: #F1F1FF;
+  background: #f1f1ff;
 }
