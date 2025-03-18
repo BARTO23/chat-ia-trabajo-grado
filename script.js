@@ -29,7 +29,8 @@ if (!chatBody || !messageInput || !sendMessageButton) {
     userData.message = messageInput.value.trim()
 
     const outgoingMessageDiv = createMessageElement(userMessage, "user-message");
-    chatBody.appendChild(outgoingMessageDiv);
+    outgoingMessageDiv.querySelector(".message-text").textContent = userData.message
+    chatBody.appendChild(outgoingMessageDiv)
 
     messageInput.value = ""; // Limpia el campo de entrada después de enviar el mensaje
     chatBody.scrollTop = chatBody.scrollHeight; // Desplaza el chat hacia abajo
