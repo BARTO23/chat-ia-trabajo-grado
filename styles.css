@@ -112,6 +112,60 @@ body {
   font-size: 0.95rem;
 }
 
+.chat-body .message .message-text img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.chat-body .message .message-text .image-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.chat-body .message .message-text .image-preview {
+  position: relative;
+  display: inline-block;
+  max-width: 120px;
+  margin: 4px 0;
+  background: #f5f5f5;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.chat-body .message .message-text .image-preview img {
+  max-width: 100%;
+  max-height: 120px;
+  border-radius: 6px;
+  display: block;
+  object-fit: cover;
+}
+
+.chat-body .message .message-text .image-preview .remove-image {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.chat-body .message .message-text .image-preview .remove-image:hover {
+  background: #cc0000;
+}
+
 .chat-body .bot-message .message-text {
   background: #f4f4f4;
   border-radius: 13px 13px 13px 3px;
@@ -128,8 +182,12 @@ body {
   position: absolute;
   width: 100%;
   bottom: 0;
+  left: 0;
+  right: 0;
   background: #ffffff;
   padding: 15px 22px 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .chat-footer .chat-form {
@@ -138,6 +196,8 @@ body {
   background: #ffffff;
   border-radius: 32px;
   outline: 1px solid #cccce5;
+  width: 100%;
+  max-width: 376px;
 }
 
 .chat-footer .chat-form:focus-within {

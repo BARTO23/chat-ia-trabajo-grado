@@ -1,22 +1,87 @@
 const chatBody = document.querySelector(".chat-body");
 const messageInput = document.querySelector(".message-input");
 const sendMessageButton = document.querySelector("#send-message");
+const fileInput = document.querySelector("#file-input");
 
 const API_KEY = "AIzaSyBkjT-zATE0SlBar5ds2Bamu5EiTNW33a8";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
 const userData = {
   message: null,
+  file: {
+    data: null,
+    mime_type: null,
+  },
+};
+
+const createImageElement = (imageData) => {
+  const img = document.createElement("img");
+  img.src = `data:${userData.file.mime_type};base64,${imageData}`;
+  return img;
+};
+
+const handleFileUpload = (file) => {
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const base64String = e.target.result.split(",")[1];
+
+    userData.file = {
+      data: base64String,
+      mime_type: file.type,
+    };
+
+    // Mostrar la imagen como vista previa
+    const imagePreview = document.createElement("div");
+    imagePreview.classList.add("image-preview");
+
+    const img = createImageElement(base64String);
+    imagePreview.appendChild(img);
+
+    // Agregar botón para eliminar la imagen
+    const removeButton = document.createElement("button");
+    removeButton.classList.add("remove-image");
+    removeButton.innerHTML = "×";
+    removeButton.addEventListener("click", () => {
+      imagePreview.remove();
+      userData.file = {
+        data: null,
+        mime_type: null,
+      };
+    });
+    imagePreview.appendChild(removeButton);
+
+    // Insertar la vista previa antes del input de mensaje
+    const chatForm = document.querySelector(".chat-form");
+    chatForm.insertBefore(imagePreview, messageInput);
+
+    fileInput.value = "";
+  };
+
+  reader.readAsDataURL(file);
 };
 
 const generateBotResponse = async (thinkingMessageDiv) => {
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" }, // Corregido "application"
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       contents: [
         {
-          parts: [{ text: userData.message }],
+          parts: [
+            { text: userData.message },
+            ...(userData.file.data
+              ? [
+                  {
+                    inline_data: {
+                      mime_type: userData.file.mime_type,
+                      data: userData.file.data,
+                    },
+                  },
+                ]
+              : []),
+          ],
         },
       ],
     }),
@@ -25,16 +90,28 @@ const generateBotResponse = async (thinkingMessageDiv) => {
   try {
     const response = await fetch(API_URL, requestOptions);
     const data = await response.json();
-    if (!response.ok) throw new Error(data.error.message);
+
+    if (!response.ok) {
+      console.error("Error de la API:", data);
+      throw new Error(data.error?.message || "Error desconocido");
+    }
 
     // Obtener la respuesta de la API
     const apiResponseText = data.candidates[0].content.parts[0].text.trim();
 
     // Reemplazar el mensaje de "pensando" con la respuesta real del bot
-    thinkingMessageDiv.querySelector(".message-text").textContent = apiResponseText;
+    thinkingMessageDiv.querySelector(".message-text").textContent =
+      apiResponseText;
+
+    // Limpiar los datos del archivo después de enviar
+    userData.file = {
+      data: null,
+      mime_type: null,
+    };
   } catch (error) {
     console.error("Error en la API:", error);
-    thinkingMessageDiv.querySelector(".message-text").textContent = "Error al obtener la respuesta.";
+    thinkingMessageDiv.querySelector(".message-text").textContent =
+      "Lo siento, hubo un error al procesar tu solicitud. Por favor, intenta de nuevo.";
   }
 };
 
@@ -116,8 +193,8 @@ if (!chatBody || !messageInput || !sendMessageButton) {
     // Obtener el mensaje del usuario
     const userMessage = messageInput.value.trim();
 
-    // Verificar si el mensaje está vacío
-    if (!userMessage) return;
+    // Verificar si el mensaje está vacío y no hay imagen
+    if (!userMessage && !userData.file.data) return;
 
     // Guardar el mensaje y limpiar el input
     userData.message = userMessage;
@@ -125,6 +202,24 @@ if (!chatBody || !messageInput || !sendMessageButton) {
 
     // Crear y mostrar el mensaje del usuario
     const outgoingMessageDiv = createMessageElement("user", userData.message);
+
+    // Si hay una imagen, agregarla al mensaje
+    if (userData.file.data) {
+      const imageContainer = document.createElement("div");
+      imageContainer.classList.add("image-container");
+      const img = createImageElement(userData.file.data);
+      imageContainer.appendChild(img);
+
+      const messageText = outgoingMessageDiv.querySelector(".message-text");
+      messageText.appendChild(imageContainer);
+
+      // Eliminar la vista previa
+      const imagePreview = document.querySelector(".image-preview");
+      if (imagePreview) {
+        imagePreview.remove();
+      }
+    }
+
     chatBody.appendChild(outgoingMessageDiv);
 
     // Desplazar el chat hacia abajo
@@ -151,3 +246,16 @@ if (!chatBody || !messageInput || !sendMessageButton) {
     handleOutgoingMessage(e);
   });
 }
+
+fileInput.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file || !file.type.startsWith("image/")) {
+    alert("Por favor, selecciona una imagen válida");
+    return;
+  }
+  handleFileUpload(file);
+});
+
+document
+  .querySelector("#file-upload")
+  .addEventListener("click", () => fileInput.click());

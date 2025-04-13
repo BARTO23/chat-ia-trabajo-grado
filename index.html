@@ -61,9 +61,11 @@
             <button type="button" class="material-symbols-rounded">
               keyboard_arrow_down
             </button>
-            <button type="button" class="material-symbols-rounded">
-              attach_file
-            </button>
+            <div class="file-upload-wrapper">
+              <input type="file" accept="image/*" id="file-input" class="file-input" hidden>
+              <button type="button" id="file-upload" class="material-symbols-rounded">attach_file</button>
+
+            </div>
             <button
               type="submit"
               id="send-message"
