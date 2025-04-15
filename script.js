@@ -2,6 +2,8 @@ const chatBody = document.querySelector(".chat-body");
 const messageInput = document.querySelector(".message-input");
 const sendMessageButton = document.querySelector("#send-message");
 const fileInput = document.querySelector("#file-input");
+const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
+const fileCanceButton = document.querySelector("#file-cancel");
 
 const API_KEY = "AIzaSyBkjT-zATE0SlBar5ds2Bamu5EiTNW33a8";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
@@ -32,29 +34,11 @@ const handleFileUpload = (file) => {
       mime_type: file.type,
     };
 
-    // Mostrar la imagen como vista previa
-    const imagePreview = document.createElement("div");
-    imagePreview.classList.add("image-preview");
-
-    const img = createImageElement(base64String);
-    imagePreview.appendChild(img);
-
-    // Agregar botón para eliminar la imagen
-    const removeButton = document.createElement("button");
-    removeButton.classList.add("remove-image");
-    removeButton.innerHTML = "×";
-    removeButton.addEventListener("click", () => {
-      imagePreview.remove();
-      userData.file = {
-        data: null,
-        mime_type: null,
-      };
-    });
-    imagePreview.appendChild(removeButton);
-
-    // Insertar la vista previa antes del input de mensaje
-    const chatForm = document.querySelector(".chat-form");
-    chatForm.insertBefore(imagePreview, messageInput);
+    // Mostrar la imagen en el wrapper del botón de subir archivo
+    const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
+    const img = fileUploadWrapper.querySelector("img");
+    img.src = e.target.result;
+    fileUploadWrapper.classList.add("file-uploaded");
 
     fileInput.value = "";
   };
@@ -199,6 +183,7 @@ if (!chatBody || !messageInput || !sendMessageButton) {
     // Guardar el mensaje y limpiar el input
     userData.message = userMessage;
     messageInput.value = "";
+    fileUploadWrapper.classList.remove("file-uploaded")
 
     // Crear y mostrar el mensaje del usuario
     const outgoingMessageDiv = createMessageElement("user", userData.message);
@@ -255,6 +240,33 @@ fileInput.addEventListener("change", (e) => {
   }
   handleFileUpload(file);
 });
+
+// Cancelar la subida del archivo
+fileCanceButton.addEventListener("click", () => {
+  userData.file = {}
+  fileUploadWrapper.classList.remove("file-uploaded")
+} )
+
+// Inicializar emoji picker
+const picker = new EmojiMart.Picker({
+  theme: "light",
+  skinTonePosition: "none",
+  previwePosition: "none",
+  onEmojiSelect: (emoji) => {
+    const {selectionStart: start, selectedEnd: end} = messageInput
+    messageInput.setRangeText(emoji.native, start, end, "end")
+    messageInput.focus()
+  },
+  onClickOutside: (e) => {
+    if(e.target.id === "emoji-picker") {
+      document.body.classList.toggle("show-emoji-picker")
+    } else {
+      document.body.classList.remove("show-emoji-picker")
+    }
+  }
+})
+
+document.querySelector(".chat-form").appendChild(picker)
 
 document
   .querySelector("#file-upload")

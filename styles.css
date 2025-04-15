@@ -125,41 +125,54 @@ body {
   position: relative;
 }
 
+.chat-body .message .message-text .image-container img {
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
 .chat-body .message .message-text .image-preview {
   position: relative;
   display: inline-block;
-  max-width: 120px;
-  margin: 4px 0;
+  width: 15px;
+  height: 15px;
+  margin: 2px;
   background: #f5f5f5;
-  padding: 4px;
-  border-radius: 8px;
+  padding: 0;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .chat-body .message .message-text .image-preview img {
-  max-width: 100%;
-  max-height: 120px;
-  border-radius: 6px;
-  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
   object-fit: cover;
+  display: block;
 }
 
 .chat-body .message .message-text .image-preview .remove-image {
   position: absolute;
-  top: -6px;
-  right: -6px;
+  top: -2px;
+  right: -2px;
   background: #ff4444;
   color: white;
   border: none;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 6px;
+  height: 6px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  line-height: 1;
 }
 
 .chat-body .message .message-text .image-preview .remove-image:hover {
@@ -193,6 +206,7 @@ body {
 .chat-footer .chat-form {
   display: flex;
   align-items: center;
+  position: relative;
   background: #ffffff;
   border-radius: 32px;
   outline: 1px solid #cccce5;
@@ -252,4 +266,49 @@ body {
 
 .chat-form .chat-controls button:hover {
   background: #f1f1ff;
+}
+
+.chat-form .file-upload-wrapper {
+  height: 35px;
+  width: 35px;
+  position: relative;
+}
+
+.chat-form .file-upload-wrapper :where(img, button) {
+  position: absolute;
+}
+
+.chat-form .file-upload-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.chat-form .file-upload-wrapper #file-cancel {
+  color: #ff0000;
+  background: #fff;
+}
+.chat-form .file-upload-wrapper :where(img, #file-cancel),
+.chat-form .file-upload-wrapper.file-uploaded #file-upload {
+  display: none;
+}
+
+.chat-form .file-upload-wrapper.file-uploaded img,
+.chat-form .file-upload-wrapper.file-uploaded:hover #file-cancel {
+  display: block;
+}
+
+em-emoji-picker {
+  position: absolute;
+  left: 50%;
+  top: -337px;
+  width: 350px;
+  visibility: hidden;
+  max-height: 330px;
+  transform: translateX(-50%);
+}
+
+body.show-emoji-picker em-emoji-picker {
+  visibility: visible;
 }
