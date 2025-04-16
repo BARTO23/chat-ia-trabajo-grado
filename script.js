@@ -58,7 +58,13 @@ const generateBotResponse = async (thinkingMessageDiv) => {
       contents: [
         {
           parts: [
+            // Instrucción inicial (contexto del sistema)
+            {
+              text: "Eres un chatbot llamado CAMPUS-AI. Estás diseñado para ayudar a estudiantes en la universidad catolica luis amigo en tareas académicas, responder dudas sobre procesos institucionales, y brindar asistencia con información clara, breve y profesional. Siempre responde en español de forma amable y organizada.",
+            },
+            // Mensaje del usuario
             { text: userData.message },
+            // Imagen (si existe)
             ...(userData.file.data
               ? [
                   {
