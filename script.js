@@ -15,6 +15,7 @@ const userData = {
   file: {
     data: null,
     mime_type: null,
+    name: null,
   },
 };
 
@@ -36,12 +37,27 @@ const handleFileUpload = (file) => {
     userData.file = {
       data: base64String,
       mime_type: file.type,
+      name: file.name,
     };
 
-    // Mostrar la imagen en el wrapper del botón de subir archivo
+    // Mostrar el archivo en el wrapper del botón de subir archivo
     const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
     const img = fileUploadWrapper.querySelector("img");
-    img.src = e.target.result;
+
+    // Mostrar un ícono según el tipo de archivo
+    let iconPath = "";
+    if (file.type.startsWith("image/")) {
+      img.src = e.target.result;
+    } else if (file.type === "application/pdf") {
+      iconPath =
+        "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2ZmMDAwMCIgZD0iTTE0IDJINmEyIDIgMCAwIDAtMiAydjE2YTIgMiAwIDAgMCAyIDJoMTJhMiAyIDAgMCAwIDItMlY4eiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0xNCAydjZoNnoiLz48L3N2Zz4=";
+      img.src = iconPath;
+    } else {
+      iconPath =
+        "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzAwN2I5OSIgZD0iTTE0IDJINmEyIDIgMCAwIDAtMiAydjE2YTIgMiAwIDAgMCAyIDJoMTJhMiAyIDAgMCAwIDItMlY4eiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0xNCAydjZoNnoiLz48L3N2Zz4=";
+      img.src = iconPath;
+    }
+
     fileUploadWrapper.classList.add("file-uploaded");
 
     fileInput.value = "";
@@ -60,7 +76,7 @@ const generateBotResponse = async (thinkingMessageDiv) => {
           parts: [
             // Instrucción inicial (contexto del sistema)
             {
-              text: "Eres un chatbot llamado CAMPUS-AI. Estás diseñado para ayudar a estudiantes en la universidad catolica luis amigo en tareas académicas, responder dudas sobre procesos institucionales, y brindar asistencia con información clara, breve y profesional. Siempre responde en español de forma amable y organizada.",
+              text: "Eres un chatbot llamado CAMPUS-AI. Estás diseñado para ayudar a estudiantes en la universidad catolica luis amigo en tareas académicas, responder dudas sobre procesos institucionales, y brindar asistencia con información clara, breve y profesional. Siempre responde en español de forma amable y organizada. Para los procesos de estudiantes usa este link: https://www.funlam.edu.co/modules/registroacademico/item.php?itemid=37 para un curso vacacional usa: https://www.funlam.edu.co/uploads/registroacademico/37_MATRICULA_VACACIONALES.pdf",
             },
             // Mensaje del usuario
             { text: userData.message },
@@ -101,6 +117,7 @@ const generateBotResponse = async (thinkingMessageDiv) => {
     userData.file = {
       data: null,
       mime_type: null,
+      name: null,
     };
   } catch (error) {
     console.error("Error en la API:", error);
@@ -139,7 +156,38 @@ const createMessageElement = (type, content) => {
     div.classList.add("user-message");
     const messageText = document.createElement("div");
     messageText.classList.add("message-text");
-    messageText.textContent = content;
+
+    if (userData.file && userData.file.data) {
+      const fileContainer = document.createElement("div");
+      fileContainer.classList.add("file-container");
+
+      const fileIcon = document.createElement("img");
+      fileIcon.classList.add("file-icon");
+
+      if (userData.file.mime_type.startsWith("image/")) {
+        fileIcon.src = `data:${userData.file.mime_type};base64,${userData.file.data}`;
+      } else if (userData.file.mime_type === "application/pdf") {
+        fileIcon.src =
+          "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2ZmMDAwMCIgZD0iTTE0IDJINmEyIDIgMCAwIDAtMiAydjE2YTIgMiAwIDAgMCAyIDJoMTJhMiAyIDAgMCAwIDItMlY4eiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0xNCAydjZoNnoiLz48L3N2Zz4=";
+      } else {
+        fileIcon.src =
+          "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzAwN2I5OSIgZD0iTTE0IDJINmEyIDIgMCAwIDAtMiAydjE2YTIgMiAwIDAgMCAyIDJoMTJhMiAyIDAgMCAwIDItMlY4eiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0xNCAydjZoNnoiLz48L3N2Zz4=";
+      }
+
+      const fileName = document.createElement("span");
+      fileName.classList.add("file-name");
+      fileName.textContent = userData.file.name;
+
+      fileContainer.appendChild(fileIcon);
+      fileContainer.appendChild(fileName);
+      messageText.appendChild(fileContainer);
+    }
+
+    if (content) {
+      const textNode = document.createTextNode(content);
+      messageText.appendChild(textNode);
+    }
+
     div.appendChild(messageText);
   } else if (type === "bot") {
     div.classList.add("bot-message");
@@ -268,10 +316,6 @@ if (!chatBody || !messageInput || !sendMessageButton) {
 
 fileInput.addEventListener("change", (e) => {
   const file = e.target.files[0];
-  if (!file || !file.type.startsWith("image/")) {
-    alert("Por favor, selecciona una imagen válida");
-    return;
-  }
   handleFileUpload(file);
 });
 

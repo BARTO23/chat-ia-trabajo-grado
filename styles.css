@@ -265,7 +265,9 @@ body.show-chatbot .chatbot-popup {
   color: #007b99;
   text-decoration: none;
   font-weight: 500;
-  display: inline;
+  display: inline-block;
+  word-break: break-word;
+  max-width: 100%;
 }
 
 .chat-body .bot-message .message-text a:hover {
@@ -435,6 +437,30 @@ em-emoji-picker {
 
 body.show-emoji-picker em-emoji-picker {
   visibility: visible;
+}
+
+.chat-body .message .message-text .file-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 8px;
+  background: rgba(0, 123, 153, 0.1);
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+.chat-body .message .message-text .file-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.chat-body .message .message-text .file-name {
+  font-size: 0.9rem;
+  color: #007b99;
+  word-break: break-word;
+  max-width: calc(100% - 32px);
 }
 
 @media (max-width: 480px), (max-height: 600px) {
