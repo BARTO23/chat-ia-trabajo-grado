@@ -1,0 +1,249 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  background: #f7f8f8;
+  color: #193145;
+}
+
+.topbar {
+  background: #0c6084;
+  color: #fff;
+  font-size: 14px;
+  padding: 7px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topbar a {
+  color: #ed7f1f;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 8px;
+}
+.search-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.search-container input {
+  padding: 2px 9px;
+  border-radius: 18px 0 0 18px;
+  border: none;
+  height: 24px;
+}
+.search-container button {
+  width: 28px;
+  height: 28px;
+  background: #ed7f1f;
+  border: none;
+  border-radius: 0 18px 18px 0;
+  cursor: pointer;
+}
+
+.main-header {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  padding: 18px 24px;
+  box-shadow: 0 2px 8px rgba(12,96,132,0.07);
+}
+.logo {
+  height: 52px;
+  margin-right: 30px;
+}
+.nav-main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 18px;
+}
+.nav-main a {
+  color: #0c6084;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 6px 10px;
+  border-radius: 3px;
+  transition: background .15s;
+}
+.nav-main a.campus-btn {
+  background: #ed7f1f;
+  color: #fff;
+  border-radius: 18px;
+  margin-left: 12px;
+  font-weight: bold;
+  padding: 7px 20px;
+}
+.nav-main a:hover {
+  background: #e6f1f5;
+}
+.nav-main a.campus-btn:hover {
+  background: #c76f19;
+}
+
+.hero-carousel {
+  background: #0c6084;
+  min-height: 300px;
+  position: relative;
+  overflow: hidden;
+}
+.carousel-slide {
+  width: 100%;
+  height: 310px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.carousel-slide img {
+  width: 100%;
+  height: 310px;
+  object-fit: cover;
+  filter: brightness(0.82);
+}
+.carousel-overlay {
+  position: absolute;
+  left: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(9,40,60,0.69);
+  color: #fff;
+  max-width: 480px;
+  padding: 28px 34px 22px 28px;
+  border-radius: 8px;
+  box-shadow: 0 0 18px rgba(12,96,132,0.13);
+}
+.carousel-overlay h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.carousel-overlay p {
+  margin: 0;
+  font-size: 1em;
+}
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  width: 38px;
+  height: 38px;
+  background: rgba(12,96,132,0.9);
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.carousel-arrow.left {
+  left: 18px;
+}
+.carousel-arrow.right {
+  right: 18px;
+}
+
+.quick-actions {
+  background: #0c6084;
+  display: flex;
+  justify-content: center;
+  padding: 29px 0 17px 0;
+  gap: 48px;
+}
+.quick-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  gap: 10px;
+}
+.quick-action img {
+  background: #fff;
+  padding: 17px;
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 6px;
+}
+.quick-action span {
+  font-size: 15px;
+  line-height: 1.35em;
+}
+
+.extension-section {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  background: #f7f8f8;
+  padding: 28px 0 12px 0;
+}
+.ext-card {
+  background: #ed7f1f;
+  border-radius: 11px;
+  overflow: hidden;
+  width: 284px;
+  box-shadow: 0 1px 13px rgba(192,168,154,0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ext-card img {
+  width: 100%;
+  height: 105px;
+  object-fit: cover;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+}
+.ext-card span {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 19px 10px 23px 10px;
+  display: block;
+}
+
+.noticias-section {
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  padding: 36px 0 16px 0;
+}
+.noticia-card {
+  width: 320px;
+  background: #f7f8f8;
+  border-radius: 9px;
+  box-shadow: 0 1px 12px rgba(146,171,182,0.7);
+  padding: 0 0 14px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 340px;
+}
+.noticia-card img {
+  width: 100%;
+  height: 130px;
+  border-radius: 9px 9px 0 0;
+  object-fit: cover;
+}
+.noticia-meta {
+  margin: 18px 0 10px 0;
+  font-size: 1.09em;
+  color: #0c6084;
+  font-weight: bold;
+  text-align: center;
+}
+.noticia-card p {
+  font-size: 15px;
+  text-align: center;
+  color: #333;
+  margin: 0 14px 13px 14px;
+  height: 56px;
+  overflow: hidden;
+}
+.noticia-card a {
+  color: #ed7f1f;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+}

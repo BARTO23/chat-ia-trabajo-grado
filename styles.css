@@ -494,3 +494,13 @@ body.show-emoji-picker em-emoji-picker {
     top: -360px;
   }
 }
+
+.fondo-de-u {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
