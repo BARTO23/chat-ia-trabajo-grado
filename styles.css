@@ -11,6 +11,8 @@
 body {
   min-height: 100vh;
   background: linear-gradient(#f4f4f4, #c8c7ff);
+  overflow-y: auto; /* Permitir scroll vertical */
+  overscroll-behavior: contain; /* evita "rebote" en algunos navegadores */
 }
 
 /* Fondo decorativo */
@@ -306,7 +308,7 @@ body.show-emoji-picker em-emoji-picker {
   visibility: visible;
 }
 
-/* 🔁 RESPONSIVE STYLES */
+/* RESPONSIVE STYLES */
 @media (max-width: 768px) {
   .chatbot-popup {
     width: 100vw;
@@ -316,6 +318,8 @@ body.show-emoji-picker em-emoji-picker {
     border-radius: 0;
     max-height: none;
     transform-origin: bottom center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .chat-header {
@@ -331,6 +335,8 @@ body.show-emoji-picker em-emoji-picker {
     gap: 12px;
     margin-bottom: 80px;
     height: auto;
+    flex: 1;
+    overflow-y: auto;
   }
 
   .chat-body .message .message-text {
