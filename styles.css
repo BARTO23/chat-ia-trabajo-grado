@@ -42,7 +42,7 @@ body {
   color: #fff;
   background: #007b99;
   transition: transform 0.3s ease;
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  z-index: 1000;
 }
 
 body.show-chatbot #chatbot-toggler {
@@ -66,8 +66,6 @@ body.show-chatbot #chatbot-toggler span:last-child {
   opacity: 0;
 }
 
-/* --------- SOLUCIÓN PARA FIJAR EL INPUT AL FONDO --------- */
-/* Estructura principal modificada */
 .chatbot-popup {
   width: 420px;
   position: fixed;
@@ -81,8 +79,6 @@ body.show-chatbot #chatbot-toggler span:last-child {
   pointer-events: none;
   box-shadow: 0 0 10px rgba(0, 123, 153, 0.3);
   transition: all 0.1s ease;
-  
-  /* Estructura flexbox modificada para asegurar que el footer esté abajo */
   display: flex;
   flex-direction: column;
   height: 600px;
@@ -355,7 +351,7 @@ body.show-emoji-picker em-emoji-picker {
   }
 
   .chat-form .message-input {
-    font-size: 16px; /* evita zoom en iOS */
+    font-size: 16px;
   }
 
   #chatbot-toggler {
@@ -371,9 +367,9 @@ body.show-emoji-picker em-emoji-picker {
   }
 }
 
-/* Fijar input abajo - Nota: ya se que estas practicas no son las mejores, pero tenia que arreglar esto rapido, por favor entiendan XD */
+/* Fijar input abajo - Nota: ya se que estas practicas no son las mejores y que se pueden considerar crimenes de guerra, pero tenia que arreglar esto rapido, por favor entiendan XD */
 .chatbot-popup {
-  position: relative !important; /* Base para posicionamiento absoluto */
+  position: relative !important;
 }
 
 .chat-footer {
@@ -383,16 +379,15 @@ body.show-emoji-picker em-emoji-picker {
   width: 100% !important;
   background: #ffffff !important;
   z-index: 1000 !important;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.1) !important; /* Sombra sutil para separar visualmente */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
 .chat-body {
-  padding-bottom: 90px !important; /* Espacio para que los mensajes no queden ocultos bajo el footer */
-  height: calc(100% - 66px) !important; /* Ajustar según la altura de tu header */
+  padding-bottom: 90px !important;
+  height: calc(100% - 66px) !important;
   overflow-y: auto !important;
 }
 
-/* Si el chat se ve diferente en móviles, asegúrate de que estas reglas también apliquen */
 @media (max-width: 768px) {
   .chat-footer {
     position: absolute !important;
@@ -401,7 +396,7 @@ body.show-emoji-picker em-emoji-picker {
     width: 100% !important;
     bottom: 0px !important;
   }
-  
+
   .chat-body {
     padding-bottom: 90px !important;
   }
