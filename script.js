@@ -243,10 +243,8 @@ if (!chatBody || !messageInput || !sendMessageButton) {
     if (e && e.preventDefault) {
       e.preventDefault();
     }
-
     // Obtener el mensaje del usuario
     const userMessage = messageInput.value.trim();
-
     // Verificar si el mensaje está vacío y no hay imagen
     if (!userMessage && !userData.file.data) return;
 
@@ -276,6 +274,7 @@ if (!chatBody || !messageInput || !sendMessageButton) {
     }
 
     chatBody.appendChild(outgoingMessageDiv);
+    
 
     // Desplazar el chat hacia abajo
     chatBody.scrollTop = chatBody.scrollHeight;
@@ -315,6 +314,13 @@ if (!chatBody || !messageInput || !sendMessageButton) {
     handleOutgoingMessage(e);
   });
 }
+
+fileUploadWrapper.classList.remove("file-uploaded");
+// Limpiar preview de imagen (para evitar duplicado visual)
+const previewImage = fileUploadWrapper.querySelector("img");
+previewImage.src = "";
+fileInput.value = "";
+
 
 fileInput.addEventListener("change", (e) => {
   const file = e.target.files[0];
