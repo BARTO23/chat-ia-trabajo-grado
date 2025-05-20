@@ -326,10 +326,6 @@ body.show-chatbot .chatbot-popup {
   height: 36px;
 }
 
-.file-upload-wrapper #file-upload {
-  /* Estilos base ya aplicados */
-}
-
 .file-upload-wrapper img {
   display: none;
   width: 100%;
